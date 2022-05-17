@@ -14,6 +14,7 @@ int main(int argc, char* argv[])
 {
     int Number;
 	char str[100];
+	
 	printf("Input number: ");
 	fgets(str, 100, stdin);
 	sscanf(str, "%d", &Number);
