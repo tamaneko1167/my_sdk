@@ -141,7 +141,7 @@ void MiRadarFftData :: fftExe(int n, int m)
 
 	fft->fftExe(data, fftData->ptr(n, m));
 
-	//fftData->compensate(n, m, ampMag[m], phaseOffset[m]);
+	fftData->compensate(n, m, ampMag[m], phaseOffset[m]);
 	//printf("%d %d  %lf %lf\n", n, m, ampMag[m], phaseOffset[m]);
 }
 
