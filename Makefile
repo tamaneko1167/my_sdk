@@ -15,5 +15,15 @@ raspush:
 	git commit -m "ras"
 	git push origin master
 
+winpush:
+	git add .
+	git commit -m "win"
+	git push origin master
+
+macpush:
+	git add .
+	git commit -m "mac"
+	git push origin master
+
 pull:
 	git pull origin master
