@@ -131,17 +131,17 @@ void MiRadarFftData :: fftExe(int n, int m)
 
 	for(int p=0;p<adDataNum;p++){
 		data[p] = complex<double>(getAdData(n, m, p) , 0.);
-		/*
+		
 		if(p<150)
 			data[p]=data[p]*(double)p/150.;
 		if(p>adDataNum-216)
 			data[p]=data[p]*(double)(adDataNum-p)/150.;
-		*/
+		
 	}
 
 	fft->fftExe(data, fftData->ptr(n, m));
 
-	fftData->compensate(n, m, ampMag[m], phaseOffset[m]);
+	//fftData->compensate(n, m, ampMag[m], phaseOffset[m]);
 	//printf("%d %d  %lf %lf\n", n, m, ampMag[m], phaseOffset[m]);
 }
 
