@@ -70,6 +70,9 @@ int main(int argc, char* argv[])
 	
 			delete sample1;
 			printf("rawdata and fftdata saved\n");
+			rename("./data.dat", "./data/data.dat");
+			rename("./raw_data.csv", "./data/raw_data.csv");
+			rename("./fft_data.csv", "./data/fft_data.csv");
 			break;
 		}
 	}

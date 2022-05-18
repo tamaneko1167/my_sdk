@@ -9,3 +9,8 @@ unload:
 	sudo ./a.out
 run:
 	sudo ./a.out
+
+raspush:
+	git add .
+	git commit -m "ras"
+	git push origin master
