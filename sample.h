@@ -178,7 +178,7 @@ public:
 		priRate=1; //PRI rateの時間[ms]
 		//priRate=1001;
 		txSw=0x59; //Tx1/2の信号出力のOn/Offを制御するスイッチ
-		waitTime=0.001;
+		waitTime=0.1;
 		alpha=5e-6;
 		beta=3.2e-4;
 		gamma=2e-4;

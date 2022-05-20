@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 			int adDataNum=sample1->adDataNum;
 			printf("%d %d\n", blockNum, adDataNum);
 	
-			for(int i = 0; i < 20; i++){
+			for(int i = 0; i < 100; i++){
 				sample1->usbReq(); //1データ分（指定ブロック数分）のデータを要求するコマンドをUSBポートに送信
 				for(int n = 0; n < blockNum; n++){
 					sample1->usbRead(n); //各ブロックのデータを、usbオブジェクト→adDataオブジェクトに格納。生データファイルにも保存。
@@ -70,9 +70,9 @@ int main(int argc, char* argv[])
 	
 			delete sample1;
 			printf("rawdata and fftdata saved\n");
-			rename("./data.dat", "./data/data.dat");
-			rename("./raw_data.csv", "./data/raw_data.csv");
-			rename("./fft_data.csv", "./data/fft_data.csv");
+			rename("./data.dat", "./../data/data.dat");
+			rename("./raw_data.csv", "./../data/raw_data.csv");
+			rename("./fft_data.csv", "./../data/fft_data.csv");
 			break;
 		}
 	}
