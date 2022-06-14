@@ -178,7 +178,7 @@ public:
 		priRate=1; //PRI rateの時間[ms]
 		//priRate=1001;
 		txSw=0x59; //Tx1/2の信号出力のOn/Offを制御するスイッチ
-		waitTime=0.1;
+		waitTime=0.01;
 		alpha=5e-6;
 		beta=3.2e-4;
 		gamma=2e-4;
@@ -218,7 +218,7 @@ int Sample :: usbOpen()
 	usb1 = new UsbB204(this);
 
 	if(usb1->port()>0){
-		//UsbSetSub(ftHandle, "B204UsbStsReq.cmd", &res1, &res2 );
+		//(ftHandle, "B204UsbStsReq.cmd", &res1, &res2 );
 
 		usb1->UsbSetSub( "B204UsbSetting.cmd" );
 
