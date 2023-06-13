@@ -5,6 +5,12 @@
 #include <iomanip>
 #include <sstream>
 #include <filesystem>
+#include <iostream> //標準入出力
+#include <sys/socket.h> //アドレスドメイン
+#include <sys/types.h> //ソケットタイプ
+#include <arpa/inet.h> //バイトオーダの変換に利用
+#include <unistd.h> //close()に利用
+#include <string> //string型
 
 void Sleep(double t)
 {
