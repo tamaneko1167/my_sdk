@@ -1,0 +1,2 @@
+g++ main.cpp sdk1.cpp fft.cpp fastRampPll.cpp libftd2xx.a  -lpthread -ldl -lrt
+
