@@ -94,7 +94,7 @@ protected:
 
 MiRadarFftData :: MiRadarFftData(MiRadar* p){
 	miRadarData(p);
-	fftMag=2;
+	fftMag=2; //ゼロパディングして、仮想的に周波数分解能を2倍にしている（信号の分解能が上がったわけではない）
 	fftData =new FftData(blockNum, chNum*2, adDataNum * fftMag);
 	fft		=new FftCalc(adDataNum * fftMag);
 };
@@ -149,7 +149,8 @@ int MiRadarFftData :: csvFileWrite()
 	for(int m=0;m<adDataNum;m++){
 		for(int n=0;n<blockNum;n++){
 			for(int o=0;o<chNum *2;o++){
-				fprintf(fpwCsv,"%lf,",fftData->absData(n, o, m));
+				//printf("%lf,%lf,",fftData->absData(n, o, m),fftData->argData(n, o, m));
+				fprintf(fpwCsv,"%lf,%lf,",fftData->absData(n, o, m),fftData->argData(n, o, m));
 			}
 		}
 		fprintf(fpwCsv,"\n");

@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
 	int chNum=sample1->chNum;
 	printf("%d %d\n", blockNum, adDataNum);
 	
-	for(int i = 0; i < 2000; i++){
+	for(int i = 0; i < 500; i++){
 		sample1->usbReq(); //1データ分（指定ブロック数分）のデータを要求するコマンドをUSBポートに送信
 		for(int n = 0; n < blockNum; n++){
 			sample1->usbRead(n); //各ブロックのデータを、usbオブジェクト→adDataオブジェクトに格納。生データファイルにも保存。
@@ -71,46 +71,14 @@ int main(int argc, char* argv[])
 	struct tm *pnow = localtime(&now);
 	char now_time[128]="";
 	sprintf(now_time,"%02d-%02d-%02d-%02d-%02d/",pnow->tm_mon+1,pnow->tm_mday,pnow->tm_hour,pnow->tm_min,pnow->tm_sec);
-	
-	int Number;
-	char str[100];
-	printf("Save number(0 or 1 or 2): ");
-	fgets(str, 100, stdin);
-	sscanf(str, "%d", &Number);
-	switch(Number){
-		case 0:
-		{
-			stringstream command;
-			command << "cd " << parent_dir << " && mkdir " << now_time << " && mv data.dat raw_data.csv fft_data.csv " << now_time;
-			system(command.str().c_str());
-			break;
-		}
-		case 1:
-		{
-			char parent_dir2[] = "/media/pi/USBDATA/";
-			stringstream command;
-			command << "cd " << parent_dir2 << " && mkdir " << now_time;
-			system(command.str().c_str());
-			stringstream command2;
-			command2 << "cd " << parent_dir << " && cp data.dat raw_data.csv fft_data.csv " << parent_dir2 << now_time;
-			system(command2.str().c_str());
-			break;
-		}
-		case 2: //そのままpcに送る
-		{
-			stringstream command;
-			command << "cd " << parent_dir << " && mkdir " << now_time << " && mv data.dat raw_data.csv fft_data.csv " << now_time;
-			system(command.str().c_str());
-			// stringstream command2;
-			// command2 << "scp -r /home/pi/SDK/send hatatamami@10.10.0.185:/Users/hatatamami/Library/CloudStorage/OneDrive-TheUniversityofTokyo/ドローンSAR/SAR_program";
-			// system(command2.str().c_str());
-			stringstream command2;
-			command2 << "scp -r /home/pi/SDK/send/" << now_time << " hatatamami@10.10.0.185:/Users/hatatamami/Library/CloudStorage/OneDrive-TheUniversityofTokyo/ドローンSAR/send";
-			system(command2.str().c_str());
-	
-			break;
-		}
-	}
+
+	char parent_dir2[] = "/media/pi/ESD-USB";
+	stringstream command;
+	command << "cd " << parent_dir2 << " && mkdir " << now_time;
+    system(command.str().c_str());
+	stringstream command2;
+	command2 << "cd " << parent_dir << " && mv data.dat raw_data.csv fft_data.csv " << parent_dir2 << now_time;
+	system(command2.str().c_str());
 
 	printf("%lf\n", (double)clock()/CLK_TCK);
 	printf("completed\n");
