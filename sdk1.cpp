@@ -37,7 +37,7 @@ long UsbB204 :: UsbOpen(int portNumber, char* msg)
 	//else{
 		ftHandle=(FT_HANDLE)UsbPortOpenNo(portNumber);
 	//}
-	if(ftHandle<0){
+	if(ftHandle<(void *)0){
 		sprintf(msg,"Can not open ftHandle.");
 		return(-1);
 	}
@@ -61,7 +61,7 @@ void UsbB204 :: UsbDeviceList(long* locIdBuf, int* numDevs)
     //long locIdBuf[16];
     //int  numDevs,n;
 
-    //ƒfƒoƒCƒXƒŠƒXƒg
+    //ï¿½fï¿½oï¿½Cï¿½Xï¿½ï¿½ï¿½Xï¿½g
     FT_ListDevices(locIdBuf,numDevs,FT_LIST_ALL|FT_OPEN_BY_LOCATION);
 }
 
@@ -83,7 +83,7 @@ long UsbB204 :: UsbPortOpenNo(int no )
 	FT_HANDLE ftHandle;
     FT_STATUS ftStatus;
 
-    //ƒ|[ƒgƒI[ƒvƒ“
+    //ï¿½|ï¿½[ï¿½gï¿½Iï¿½[ï¿½vï¿½ï¿½
     ftStatus = FT_Open(no,&ftHandle);
     if (!FT_SUCCESS(ftStatus)){
         //printf("Can't open DEV_0x%X\n",dwLoc);
@@ -263,7 +263,7 @@ int UsbB204 :: UsbPortSet()
     FT_STATUS ftStatus;
     TFtConfigData configData;
 
-    //ƒ|[ƒgİ’è
+    //ï¿½|ï¿½[ï¿½gï¿½İ’ï¿½
     //configData.BaudRate = FT_INDEX_BAUD_115200;
     configData.BaudRate = FT_INDEX_BAUD_921600;
     //configData.BaudRate = FT_INDEX_BAUD_9600;
@@ -287,16 +287,16 @@ int UsbB204 :: UsbPortSet()
     configData.TxTimeout = FT_DEFAULT_TX_TIMEOUT;
     configData.EventMask = 0;
 
-    //FT_SetTimeouts((FT_HANDLE)ftHandle,1000,1000);              // ƒ^ƒCƒ€ƒAƒEƒgİ’è 1sec
+    //FT_SetTimeouts((FT_HANDLE)ftHandle,1000,1000);              // ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½İ’ï¿½ 1sec
     int res=UsbPortSetSub(&configData);
-    FT_SetTimeouts((FT_HANDLE)ftHandle,2000,2000);              // ƒ^ƒCƒ€ƒAƒEƒgİ’è 2sec    220429
+    FT_SetTimeouts((FT_HANDLE)ftHandle,2000,2000);              // ï¿½^ï¿½Cï¿½ï¿½ï¿½Aï¿½Eï¿½gï¿½İ’ï¿½ 2sec    220429
 	return(res);
 
 }
 
 void UsbB204 :: UsbPortClose()
 {
-	if( ftHandle>0){
+	if( ftHandle>(void *)0){
 		FT_Close(ftHandle);
 		ftHandle=0;
 	}
@@ -367,13 +367,13 @@ int UsbB204 :: UsbResponseRead( int* FPGAver, int* pll_lock, unsigned char* data
 	ULONG         bytesRead;
 	int			  OK,res_error,n;
 
-	//[data b c]=mxRead(ftHandle,4);  %ˆø”@ƒ|[ƒg”Ô†A“Ç‚İo‚·ƒoƒCƒg”  –ß‚è’l  1:ƒf[ƒ^ , 2:ƒoƒCƒg”, 3:FT_Read‚ÌƒXƒe[ƒ^ƒX
+	//[data b c]=mxRead(ftHandle,4);  %ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½|ï¿½[ï¿½gï¿½Ôï¿½ï¿½Aï¿½Ç‚İoï¿½ï¿½ï¿½oï¿½Cï¿½gï¿½ï¿½  ï¿½ß‚ï¿½l  1:ï¿½fï¿½[ï¿½^ , 2:ï¿½oï¿½Cï¿½gï¿½ï¿½, 3:FT_Readï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½X
 	FT_Read( (FT_HANDLE)ftHandle,data,4,&bytesRead);
 	bytes=data[2]*256+data[3]+1;
 	if( bytes%2 )
 		bytes=bytes+1;
 
-	//[data2 b c]=mxRead(ftHandle,bytes);  %ˆø”@ƒ|[ƒg”Ô†A“Ç‚İo‚·ƒoƒCƒg”  –ß‚è’l  1:ƒf[ƒ^ , 2:ƒoƒCƒg”, 3:FT_Read‚ÌƒXƒe[ƒ^ƒX
+	//[data2 b c]=mxRead(ftHandle,bytes);  %ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½|ï¿½[ï¿½gï¿½Ôï¿½ï¿½Aï¿½Ç‚İoï¿½ï¿½ï¿½oï¿½Cï¿½gï¿½ï¿½  ï¿½ß‚ï¿½l  1:ï¿½fï¿½[ï¿½^ , 2:ï¿½oï¿½Cï¿½gï¿½ï¿½, 3:FT_Readï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½X
 	FT_Read( (FT_HANDLE)ftHandle,&data[4],bytes,&bytesRead);
 	//data=[data data2];
 
@@ -382,7 +382,7 @@ int UsbB204 :: UsbResponseRead( int* FPGAver, int* pll_lock, unsigned char* data
 	res_error= 0;
     
 	if(data[0]==02 && data[1]==255) {  // % 0x02 ff
-		if(data[4]==1){  // % ’ÊMŒ‹‰Ê‰“š  0x02 ff 00 03 01 
+		if(data[4]==1){  // % ï¿½ÊMï¿½ï¿½ï¿½Ê‰ï¿½ï¿½ï¿½  0x02 ff 00 03 01 
 			if(data[5]==0){
 				OK=1;
 			}
@@ -398,7 +398,7 @@ int UsbB204 :: UsbResponseRead( int* FPGAver, int* pll_lock, unsigned char* data
 				}
 			}
 		}
-		else if(data[4]==2){  //% Status—v‹‰“š    0x02 ff 00 03 02
+		else if(data[4]==2){  //% Statusï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½    0x02 ff 00 03 02
 			*FPGAver=(int)(data[5]);
 			*pll_lock=(int)(data[6]);
 			OK=1;
@@ -406,7 +406,7 @@ int UsbB204 :: UsbResponseRead( int* FPGAver, int* pll_lock, unsigned char* data
 			printf("FPGAver %d  PLL Lock 0x%02x\n", *FPGAver, *pll_lock); 
 		}
 		else{
-			printf("‰“š‚Ìí—Ş(01,02ˆÈŠO) \n"); 
+			printf("ï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½(01,02ï¿½ÈŠO) \n"); 
 			res_error=1;
 		}
 	}
@@ -425,7 +425,7 @@ int UsbB204 :: UsbResponseRead( int* FPGAver, int* pll_lock, unsigned char* data
 		}
 	}
 	else{
-		printf("header(02ffˆÈŠO) %x%x \n",data[0],data[1]); 
+		printf("header(02ffï¿½ÈŠO) %x%x \n",data[0],data[1]); 
 		res_error=1;
 		//%pause(1);
 	}
@@ -448,7 +448,7 @@ int UsbB204 :: UsbSetSub( char* fileName, int* res1  , int* res2  )
 	char fileName2[200];
 
 	fpr=fopen(fileName,"r");
-	if(fpr<=0){
+	if(fpr<=(void *)0){
 		printf("%s not found.\n", fileName);
 		return(-1);
 	}
@@ -582,7 +582,7 @@ int UsbB204 :: UsbReadData(int block)
 
 	bytesRead=UsbRead(  &usbData[readNum*block] , readNum );
 
-	if(fpw>0){
+	if(fpw>(void *)0){
 		clk=clock();
 		fprintf(fpw,"%ld",time(&tim));
 		fprintf(fpw,".%ld ",clk); 
@@ -809,7 +809,7 @@ int MiRadarData :: rawFileRead()
 	long    tim1,clk1;
 	unsigned char c;
 
-	if(fprRaw>0){
+	if(fprRaw>(void *)0){
 
 		for(int n=0;n<blockNum;n++){
 			int err=fscanf(fprRaw,"%ld.%ld ",&tim1,&clk1);

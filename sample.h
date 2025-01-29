@@ -218,7 +218,7 @@ int Sample :: usbOpen()
 {
 	usb1 = new UsbB204(this);
 
-	if(usb1->port()>0){
+	if(usb1->port()>(void *)0){
 		//(ftHandle, "B204UsbStsReq.cmd", &res1, &res2 );
 
 		usb1->UsbSetSub( "B204UsbSetting.cmd" );
